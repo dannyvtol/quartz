@@ -98,6 +98,8 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
           if (title !== "index") {
             curPathSegment = title
           }
+        } else {
+          curPathSegment = curPathSegment[0].toLocaleUpperCase() + curPathSegment.substring(1)
         }
 
         // Add current slug to full path

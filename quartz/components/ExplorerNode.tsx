@@ -51,7 +51,7 @@ export class FileNode {
   constructor(slugSegment: string, displayName?: string, file?: QuartzPluginData, depth?: number) {
     this.children = []
     this.name = slugSegment
-    this.displayName = displayName ?? file?.frontmatter?.title ?? slugSegment
+    this.displayName = file?.frontmatter?.title ?? (displayName ? displayName[0].toUpperCase() + displayName.substring(1) : null)  ?? slugSegment
     this.file = file ? clone(file) : null
     this.depth = depth ?? 0
   }

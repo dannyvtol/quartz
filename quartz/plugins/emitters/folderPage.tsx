@@ -86,16 +86,19 @@ export const FolderPage: QuartzEmitterPlugin<Partial<FolderPageOptions>> = (user
       )
 
       const folderDescriptions: Record<string, ProcessedContent> = Object.fromEntries(
-        [...folders].map((folder) => [
-          folder,
-          defaultProcessedContent({
-            slug: joinSegments(folder, "index") as FullSlug,
-            frontmatter: {
-              title: `${i18n(cfg.locale).pages.folderContent.folder}: ${folder}`,
-              tags: [],
-            },
-          }),
-        ]),
+        [...folders].map((folder) => {
+          const capitalisedFolderName = folder[0].toLocaleUpperCase() + folder.substring(1) as SimpleSlug
+          return [
+            folder,
+            defaultProcessedContent({
+              slug: joinSegments(folder, "index") as FullSlug,
+              frontmatter: {
+                title: capitalisedFolderName,
+                tags: [],
+              },
+            }),
+          ]
+      }),
       )
 
       for (const [tree, file] of content) {

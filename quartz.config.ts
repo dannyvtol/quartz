@@ -1,5 +1,24 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
+import { QuartzPluginData } from "./quartz/plugins/vfile"
+
+function sortByWeight(pluginDataA: QuartzPluginData, pluginDataB: QuartzPluginData) {
+  const frontmatterWeightA: number = (pluginDataA.frontmatter?.weight ?? undefined) as number
+  const frontmatterWeightB: number = (pluginDataB.frontmatter?.weight ?? undefined) as number
+
+  if (frontmatterWeightA === frontmatterWeightB) {
+    return (pluginDataA.frontmatter?.title ?? '').localeCompare(pluginDataB.frontmatter?.title ?? '', undefined, {
+      numeric: true,
+      sensitivity: "base",
+    });
+  }
+
+  if (frontmatterWeightA < frontmatterWeightB) {
+    return -1
+  }
+
+  return 1;
+}
 
 /**
  * Quartz 4.0 Configuration
@@ -77,8 +96,8 @@ const config: QuartzConfig = {
       Plugin.AliasRedirects(),
       Plugin.ComponentResources(),
       Plugin.ContentPage(),
-      Plugin.FolderPage(),
-      Plugin.TagPage(),
+      Plugin.FolderPage({ sort: sortByWeight}),
+      Plugin.TagPage({ sort: sortByWeight }),
       Plugin.ContentIndex({
         enableSiteMap: true,
         enableRSS: true,

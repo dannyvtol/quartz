@@ -73,6 +73,10 @@
   @media all and (max-width: $mobileBreakpoint) {
     display: none !important;
   }
+
+  #toc-content.collapsed {
+    display: none;
+  }
 }
 
 a:hover .popover,

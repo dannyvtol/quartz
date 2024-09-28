@@ -28,6 +28,7 @@ function sortByWeight(pluginDataA: QuartzPluginData, pluginDataB: QuartzPluginDa
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "🪴 Quartz 4.0",
+    pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
     analytics: {
